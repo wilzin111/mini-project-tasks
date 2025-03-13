@@ -12,7 +12,7 @@ if (!existsSync(filePath)) {
 const data = readFileSync(filePath, { encoding: 'utf-8' });
 const parsed = JSON.parse(data);
 
-const tasks = new map(parsed.map((task) => [task.name, task]));
+const tasks = new Map(parsed.map((task) => [task.name, task]));
 
 export const taskManager = {
     tasks,
