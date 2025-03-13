@@ -2,6 +2,7 @@ import { isCancel, log, select } from '@clack/prompts';
 import { taskManager } from '../manager/tasks.js';
 import { mainMenu } from './main.js';
 import chalk from 'chalk';
+import { updateTaskMenu } from './update.js';
 
 export async function listTasksMenu() {
     if (taskManager.tasks.size < 1) {
@@ -29,5 +30,5 @@ export async function listTasksMenu() {
         return;
     }
 
-    // criar funcao ataulizar tarefas
+    updateTaskMenu(selected);
 }
