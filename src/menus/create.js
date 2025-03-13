@@ -1,5 +1,6 @@
-import { log, text } from '@clack/prompts';
+import { isCancel, log, text } from '@clack/prompts';
 import { taskManager } from '../manager/tasks.js';
+import { mainMenu } from './main.js';
 
 export async function createTaskMenu() {
     let name;
@@ -12,5 +13,22 @@ export async function createTaskMenu() {
             log.error('Ja existe uma tarefa com esse nome!');
         }
     } while (taskManager.tasks.has(name));
-    console.log(name);
+
+    if (isCancel(name)) {
+        mainMenu();
+        return;
+    }
+
+    const task = {
+        name,
+        status: 'em andamento',
+        createdAT: new Date().toISOString(),
+    };
+
+    taskManager.create(task);
+
+    log.success('Tarefa criada com sucesso!');
+    setTimeout(() => {
+        mainMenu();
+    }, 1000);
 }
